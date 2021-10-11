@@ -2,7 +2,6 @@ import { User } from "../models/index";
 import { getRepository } from "typeorm";
 import * as bcrypt from "bcrypt";
 import * as jwt from 'jsonwebtoken';
-import { promisify } from "util";
 
 import catchAsync from "../utils/catch.async";
 import { NextFunction, Response, Request } from "express";
@@ -33,7 +32,9 @@ export const signup = catchAsync( async (req:Request, res: Response, next: NextF
   const token = signToken(user.id, user.username)
   res.status(200).send({
     status: 'success',
-    token,
+    data: {
+      token,
+    }
   });
 })
 
@@ -52,7 +53,9 @@ export const signin = catchAsync(async (req:Request, res: Response, next: NextFu
   const token = signToken(user.id, user.username);
   res.status(200).send({
     status: 'success',
-    token
+    data: {
+      token,
+    }
   })
 })
 
@@ -84,7 +87,6 @@ export const protect = catchAsync(async (req:Request, res: Response, next: NextF
       )
     );
   }
-
   req.body.user = user;
   next();
 });
