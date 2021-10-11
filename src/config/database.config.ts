@@ -10,7 +10,7 @@ const config: ConnectionOptions = {
   password: process.env.POSTGRES_PASSWORD || "qwert12345",
   database: process.env.POSTGRES_DB || "blog",
   entities: [User, Post],
-  synchronize: true,
+  // synchronize: true,
 };
 
 export default config;
